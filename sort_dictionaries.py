@@ -1,3 +1,6 @@
+import unittest
+
+
 def read_from_file():
     file = open("dictionaries", "r")
     list_dict_file = []
@@ -30,8 +33,14 @@ def sort(list_to_sort):
 
 
 list_from_file = read_from_file()
-print(sort(list_from_file))
 write(list_from_file)
+
+
+class SortTest(unittest.TestCase):
+    def test_sort(self):
+        list_ex = read_from_file()
+        res = sort(list_ex)
+        self.assertEqual(res, [{'ag': '8', 'bd': '23', 'df': '34'}, {'ah': '9', 'bf': '23', 'jd': '34'}, {'aa': '12', 'ba': '33', 'cb': '45'}, {'ac': '11', 'ab': '23', 'cb': '34'}])
 
 
 

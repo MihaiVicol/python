@@ -1,3 +1,6 @@
+import unittest
+
+
 a = {'x': [[1, 2, 3]], 'y': 1, 'z': set([1, 2, 3]), 'w': 'qweqwe', 't': {'a': [1, 2]}, 'm': [1]}
 b = {'x': [4, 5, 6], 'y': 4, 'z': set([4, 2, 3]), 'w': 'asdf', 't': {'a': [3, 2]}, 'm': 'wer', 'd': 123}
 
@@ -25,4 +28,9 @@ def merge(x, y, z={}):
         return x, y
 
 
-print(merge(a, b))
+class MergeTest(unittest.TestCase):
+    def test_merge_dict(self):
+        d1 = {'x': [[1, 2, 3]], 'y': 1, 'z': set([1, 2, 3]), 'w': 'qweqwe', 't': {'a': [1, 2]}, 'm': [1]}
+        d2 = {'x': [4, 5, 6], 'y': 4, 'z': set([4, 2, 3]), 'w': 'asdf', 't': {'a': [3, 2]}, 'm': 'wer', 'd': 123}
+        res = merge(d1, d2)
+        self.assertEqual(res, {'x': [[1, 2, 3], 4, 5, 6], 'y': 5, 'z': {1, 2, 3, 4}, 'w': 'qweqweasdf', 'a': [1, 2, 3, 2], 'm': ([1], 'wer'), 'd': 123})
