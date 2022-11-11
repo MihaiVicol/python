@@ -3,14 +3,33 @@ import unittest
 
 
 def merge_tuples_lists_integers_strings_floats(x, y):
+    """
+    merges two lists or tuples or integers or strings or floats
+    parameters are the same type
+    :param x: lists or tuples or integers or strings or floats
+    :param y: lists or tuples or integers or strings or floats
+    :return:  merged object of x and y
+    """
     return x + y
 
 
 def merge_sets(x, y):
+    """
+    merges two sets
+    :param x: set
+    :param y: set
+    :return: merged set of x and y
+    """
     return x.union(y)
 
 
 def merge_dicts(x, y):
+    """
+    merges two dictionaries
+    :param x: dictionary
+    :param y: dictionary
+    :return: merged dictionary of x and y
+    """
     for k, v in y.items():
         if isinstance(v, collections.abc.Mapping):
             x[k] = merge_dicts(x.get(k, {}), v)
@@ -27,6 +46,12 @@ def merge_dicts(x, y):
 
 
 def merge(x, y):
+    """
+    merges any two objects
+    :param x: any object
+    :param y: any object
+    :return: merged object of x and y
+    """
     if not isinstance(x, type(y)):
         return x, y
     else:
