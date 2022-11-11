@@ -1,20 +1,21 @@
-from datetime import datetime
 import time
+from datetime import datetime
 
 
-def time_slow(func):
-    def wrapper():
+def time_slow( **kwargs):
+    def wrapper(func):
         start_time = time.time()
-        print(f'Function: {func.__name__}\nRun on: {datetime.today().strftime("%Y-%m-%d %H:%M:%S")}')
-        print(f'Execution time:  %s seconds' % (time.time() - start_time))
-        print(f'{"*" * 30}')
-        func()
+        if kwargs.get('threshold') is None:
+            print(f'Function: {func.__name__}\nRun on: {datetime.today().strftime("%Y-%m-%d %H:%M:%S")}')
+            print(f'Execution time:  %s seconds' % (time.time() - start_time))
+        else:
+            if kwargs['threshold'] < (time.time() - start_time):
+                print(f'Function: {func.__name__}\nRun on: {datetime.today().strftime("%Y-%m-%d %H:%M:%S")}')
+                print(f'Execution time:  %s seconds' % (time.time() - start_time))
+
     return wrapper
 
 
-@time_slow
-def daily_backup():
-    print('Daily backup job has finished.')
-
-
-daily_backup()
+@time_slow(threshold=0.1)
+def my_fast():
+    print('function ended')
