@@ -1,31 +1,66 @@
+import collections
 import unittest
 
 
-a = {'x': [[1, 2, 3]], 'y': 1, 'z': set([1, 2, 3]), 'w': 'qweqwe', 't': {'a': [1, 2]}, 'm': [1]}
-b = {'x': [4, 5, 6], 'y': 4, 'z': set([4, 2, 3]), 'w': 'asdf', 't': {'a': [3, 2]}, 'm': 'wer', 'd': 123}
+def merge_tuples_lists_integers_strings_floats(x, y):
+    """
+    merges two lists or tuples or integers or strings or floats
+    parameters are the same type
+    :param x: lists or tuples or integers or strings or floats
+    :param y: lists or tuples or integers or strings or floats
+    :return:  merged object of x and y
+    """
+    return x + y
 
 
-def merge(x, y, z={}):
-    if type(x) is type(y):
-        for items_x, items_y in zip(x, y):
-            if type(x[items_x]) is type(y[items_y]):
-                if isinstance(x[items_x], (int, float, str, list)):
-                    z[items_x] = x[items_x]
-                    z[items_x] += y[items_y]
-                elif isinstance(x[items_x], set):
-                    z[items_x] = x[items_x]
-                    z[items_x].update(y[items_y])
-                elif isinstance(x[items_x], dict):
-                    merge(x[items_x], y[items_y])
-            else:
-                z[items_x] = (x[items_x], y[items_y])
-        if len(y) > len(x):
-            tuple_y = tuple(y.items())
-            for k in range(len(x), len(y)):
-                z[tuple_y[k][0]] = tuple_y[k][1]
-        return z
-    else:
+def merge_sets(x, y):
+    """
+    merges two sets
+    :param x: set
+    :param y: set
+    :return: merged set of x and y
+    """
+    return x.union(y)
+
+
+def merge_dicts(x, y):
+    """
+    merges two dictionaries
+    :param x: dictionary
+    :param y: dictionary
+    :return: merged dictionary of x and y
+    """
+    for k, v in y.items():
+        if isinstance(v, collections.abc.Mapping):
+            x[k] = merge_dicts(x.get(k, {}), v)
+        else:
+            if k not in x:
+                x[k] = v
+            elif not isinstance(x[k], type(v)):
+                x[k] = x[k], v
+            elif isinstance(x[k], (list, float, str, int)):
+                x[k] = merge_tuples_lists_integers_strings_floats(x[k], v)
+            elif isinstance(x[k], set):
+                x[k] = merge_sets(x[k], v)
+    return x
+
+
+def merge(x, y):
+    """
+    merges any two objects
+    :param x: any object
+    :param y: any object
+    :return: merged object of x and y
+    """
+    if not isinstance(x, type(y)):
         return x, y
+    else:
+        if isinstance(x, (list, float, str, int)):
+            return merge_tuples_lists_integers_strings_floats(x, y)
+        elif isinstance(x, set):
+            return merge_sets(x, y)
+        elif isinstance(x, dict):
+            return merge_dicts(x, y)
 
 
 class MergeTest(unittest.TestCase):
@@ -33,4 +68,22 @@ class MergeTest(unittest.TestCase):
         d1 = {'x': [[1, 2, 3]], 'y': 1, 'z': set([1, 2, 3]), 'w': 'qweqwe', 't': {'a': [1, 2]}, 'm': [1]}
         d2 = {'x': [4, 5, 6], 'y': 4, 'z': set([4, 2, 3]), 'w': 'asdf', 't': {'a': [3, 2]}, 'm': 'wer', 'd': 123}
         res = merge(d1, d2)
-        self.assertEqual(res, {'x': [[1, 2, 3], 4, 5, 6], 'y': 5, 'z': {1, 2, 3, 4}, 'w': 'qweqweasdf', 'a': [1, 2, 3, 2], 'm': ([1], 'wer'), 'd': 123})
+        self.assertEqual(res, {'x': [[1, 2, 3], 4, 5, 6], 'y': 5, 'z': {1, 2, 3, 4}, 'w': 'qweqweasdf', 't': {'a': [1, 2, 3, 2]}, 'm': ([1], 'wer'), 'd': 123})
+
+    def test_merge_different_types(self):
+        d1 = [1, 2, 3]
+        d2 = (1, 2, 3)
+        res = merge(d1, d2)
+        self.assertEqual(res, ([1, 2, 3], (1, 2, 3)))
+
+    def test_merge_dict_in_depth(self):
+        d1 = {'t': {'y': {'z': 12}}}
+        d2 = {'t': {'y': {'z': 13}}}
+        res = merge(d1, d2)
+        self.assertEqual(res, {'t': {'y': {'z': 25}}})
+
+    def test_merge_lists(self):
+        d1 = [1, 2, 3]
+        d2 = [1, 2, 3]
+        res = merge(d1, d2)
+        self.assertEqual(res, [1, 2, 3, 1, 2, 3])
