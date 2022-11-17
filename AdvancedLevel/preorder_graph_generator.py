@@ -12,8 +12,6 @@ def preorder_generator(graph_tuple):
 class TestGenerator(unittest.TestCase):
     def test_preorder(self):
         graph_t = ('b', ('a', None, None), ('z', ('c', None, None), ('zz', None, None)))
-        res = []
-        for node in preorder_generator(graph_t):
-            res.append(node)
-        self.assertEqual(res, ['b', 'a', 'z', 'c', 'zz'])
+        res = [node for node in preorder_generator(graph_t)]
+        self.assertListEqual(res, ['b', 'a', 'z', 'c', 'zz'])
 

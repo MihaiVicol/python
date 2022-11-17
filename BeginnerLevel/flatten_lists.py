@@ -33,12 +33,12 @@ def make_flatten(list_a, list_b, depth):
 class FlattenTest(unittest.TestCase):
     def test_different_depth_elements(self):
         res = make_flatten([[[[[[1, 2, 3]]], 3, 4], 5]], [[[[4, 5, 6]], 7]], 20)
-        self.assertEqual(([1, 2, 3, 3, 4, 5], [4, 5, 6, 7]), res, "i'm testing two lists")
+        self.assertTupleEqual(([1, 2, 3, 3, 4, 5], [4, 5, 6, 7]), res, "i'm testing two lists")
 
     def test_depth_lower(self):
         r = make_flatten([[[[[[1, 2, 3]]], 3, 4], 5]], [[[[4, 5, 6]], 7]], 4)
-        self.assertEqual(([[1, 2, 3], 3, 4, 5], [4, 5, 6, 7]), r, "i'm testing two lists")
+        self.assertTupleEqual(([[1, 2, 3], 3, 4, 5], [4, 5, 6, 7]), r, "i'm testing two lists")
 
     def test_empty_list(self):
         res = make_flatten([], [], 20)
-        self.assertEqual(res, ([], []))
+        self.assertTupleEqual(res, ([], []))

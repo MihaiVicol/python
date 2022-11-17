@@ -8,7 +8,7 @@ def read_from_file():
     dictionaries are separated by new line
     :return: list of dictionaries
     """
-    file = open("../venv/dictionaries", "r")
+    file = open("dictionaries", "r")
     list_dict_file = []
 
     for line in file.readlines():
@@ -29,7 +29,7 @@ def write(list_dict):
     :param list_dict: list of dictionaries
     :return: None
     """
-    f = open('../venv/sorted_dictionaries', 'w')
+    f = open('sorted_dictionaries', 'w')
     list_original = read_from_file()
     for i in list_dict:
         f.write(str(list_original.index(i)) + '\n')
@@ -64,11 +64,11 @@ class SortTest(unittest.TestCase):
     def test_sort(self):
         list_ex = read_from_file()
         res = sort(list_ex)
-        self.assertEqual(res, [{'ag': '8', 'bd': '23', 'df': '34'}, {'ah': '9', 'bf': '23', 'jd': '34'}, {'aa': '12', 'ba': '33', 'cb': '45'}, {'ac': '11', 'ab': '23', 'cb': '34'}])
+        self.assertListEqual(res, [{'ag': '8', 'bd': '23', 'df': '34'}, {'ah': '9', 'bf': '23', 'jd': '34'}, {'aa': '12', 'ba': '33', 'cb': '45'}, {'ac': '11', 'ab': '23', 'cb': '34'}])
 
     def test_read_file(self):
         res = read_from_file()
-        self.assertEqual(res, [{'ac': '11', 'ab': '23', 'cb': '34'},
+        self.assertListEqual(res, [{'ac': '11', 'ab': '23', 'cb': '34'},
                                {'ah': '9', 'bf': '23', 'jd': '34'},
                                {'ag': '8', 'bd': '23', 'df': '34'},
                                {'aa': '12', 'ba': '33', 'cb': '45'}])

@@ -74,16 +74,16 @@ class MergeTest(unittest.TestCase):
         d1 = [1, 2, 3]
         d2 = (1, 2, 3)
         res = merge(d1, d2)
-        self.assertEqual(res, ([1, 2, 3], (1, 2, 3)))
+        self.assertDictEqual(res, ([1, 2, 3], (1, 2, 3)))
 
     def test_merge_dict_in_depth(self):
         d1 = {'t': {'y': {'z': 12}}}
         d2 = {'t': {'y': {'z': 13}}}
         res = merge(d1, d2)
-        self.assertEqual(res, {'t': {'y': {'z': 25}}})
+        self.assertDictEqual(res, {'t': {'y': {'z': 25}}})
 
     def test_merge_lists(self):
         d1 = [1, 2, 3]
         d2 = [1, 2, 3]
         res = merge(d1, d2)
-        self.assertEqual(res, [1, 2, 3, 1, 2, 3])
+        self.assertDictEqual(res, [1, 2, 3, 1, 2, 3])
