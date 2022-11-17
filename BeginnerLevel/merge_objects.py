@@ -15,7 +15,7 @@ def merge_tuples_lists_integers_strings_floats(x, y):
 
 def merge_sets(x, y):
     """
-    merges two sets
+    merges two sets with union method
     :param x: set
     :param y: set
     :return: merged set of x and y
@@ -25,7 +25,7 @@ def merge_sets(x, y):
 
 def merge_dicts(x, y):
     """
-    merges two dictionaries
+    merges two dictionaries with depth
     :param x: dictionary
     :param y: dictionary
     :return: merged dictionary of x and y

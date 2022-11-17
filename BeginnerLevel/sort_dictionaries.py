@@ -69,8 +69,8 @@ class SortTest(unittest.TestCase):
     def test_read_file(self):
         res = read_from_file()
         self.assertListEqual(res, [{'ac': '11', 'ab': '23', 'cb': '34'},
-                               {'ah': '9', 'bf': '23', 'jd': '34'},
-                               {'ag': '8', 'bd': '23', 'df': '34'},
-                               {'aa': '12', 'ba': '33', 'cb': '45'}])
+                                   {'ah': '9', 'bf': '23', 'jd': '34'},
+                                   {'ag': '8', 'bd': '23', 'df': '34'},
+                                   {'aa': '12', 'ba': '33', 'cb': '45'}])
 
 

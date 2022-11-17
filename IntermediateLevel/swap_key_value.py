@@ -25,7 +25,7 @@ def swap_keys_values(dict_to_swap):
             copy_dict[dict_to_swap[key]] = key
         else:
             copy_dict[key] = dict_to_swap[key]
-            print('value ' + str(dict_to_swap[key]) + ' cannot be key')
+            print(f'value {str(dict_to_swap[key])} cannot be key')
     return copy_dict
 
 

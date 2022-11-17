@@ -121,7 +121,7 @@ class Deck:
             :return: rank of card
             """
             return card.rank()
-        self.cards = sorted(self.cards, key=sort_key)
+        self.cards = sorted(self.cards, key=lambda card: card.rank())
 
     def list_of_cards(self):
         """
