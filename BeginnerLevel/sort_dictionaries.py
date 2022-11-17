@@ -8,7 +8,7 @@ def read_from_file():
     dictionaries are separated by new line
     :return: list of dictionaries
     """
-    file = open("dictionaries", "r")
+    file = open("../venv/dictionaries", "r")
     list_dict_file = []
 
     for line in file.readlines():
@@ -29,7 +29,7 @@ def write(list_dict):
     :param list_dict: list of dictionaries
     :return: None
     """
-    f = open('sorted_dictionaries', 'w')
+    f = open('../venv/sorted_dictionaries', 'w')
     list_original = read_from_file()
     for i in list_dict:
         f.write(str(list_original.index(i)) + '\n')

@@ -30,7 +30,7 @@ def make_flatten(list_a, list_b, depth):
     return flatten(list_a, depth), flatten(list_b, depth)
 
 
-class FlattenTest (unittest.TestCase):
+class FlattenTest(unittest.TestCase):
     def test_different_depth_elements(self):
         res = make_flatten([[[[[[1, 2, 3]]], 3, 4], 5]], [[[[4, 5, 6]], 7]], 20)
         self.assertEqual(([1, 2, 3, 3, 4, 5], [4, 5, 6, 7]), res, "i'm testing two lists")

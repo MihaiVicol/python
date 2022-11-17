@@ -31,7 +31,7 @@ class Card:
     def __repr__(self):
         """
         create printable representation
-        :return: string that represents a card (Ex: 2 of ace)
+        :return: string that represents a card (Ex: 2 of spades)
         """
         v = self.values[self.value] + \
             " of " + \
