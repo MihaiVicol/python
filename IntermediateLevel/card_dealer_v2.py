@@ -31,9 +31,7 @@ class Card:
         create printable representation
         :return: string that represents a card (Ex: 2 of spades)
         """
-        v = self.values[self.value] + \
-            " of " + \
-            self.suits[self.suit]
+        v = '{} {} {}'.format(self.values[self.value], 'of', self.suits[self.suit])
         return v
 
     def get_rank(self):

@@ -8,18 +8,16 @@ def read_from_file():
     dictionaries are separated by new line
     :return: list of dictionaries
     """
-    file = open("dictionaries", "r")
     list_dict_file = []
+    with open("dictionaries", "r") as my_file:
 
-    for line in file.readlines():
-        words_list = line.split()
-        a = {}
-        for words in range(0, len(words_list)-1, 2):
-            a[words_list[words]] = words_list[words+1]
-        list_dict_file.append(a)
-
-    file.close()
-    return list_dict_file
+        for line in my_file.readlines():
+            words_list = line.split()
+            a = {}
+            for words in range(0, len(words_list)-1, 2):
+                a[words_list[words]] = words_list[words+1]
+            list_dict_file.append(a)
+        return list_dict_file
 
 
 def write(list_dict):
@@ -29,11 +27,10 @@ def write(list_dict):
     :param list_dict: list of dictionaries
     :return: None
     """
-    f = open('sorted_dictionaries', 'w')
-    list_original = read_from_file()
-    for i in list_dict:
-        f.write(str(list_original.index(i)) + '\n')
-    f.close()
+    with open("dictionaries", "w") as my_file:
+        list_original = read_from_file()
+        for i in list_dict:
+            my_file.write(str(list_original.index(i)) + '\n')
 
 
 def cmp_func(b):
