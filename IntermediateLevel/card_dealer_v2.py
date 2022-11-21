@@ -76,7 +76,7 @@ class Deck:
         draw 2 cards for player
         :return: tuple consisting of 2 cards or None if deck doesn't have 2 cards
         """
-        if len(self.cards) == 1:
+        if len(self.cards) < 2:
             return
         return self.cards.pop(), self.cards.pop()
 
@@ -85,7 +85,7 @@ class Deck:
         draw 5 cards for table
         :return: tuple consisting of 5 cards or None if deck doesn't have 5 cards
         """
-        if len(self.cards) == 4:
+        if len(self.cards) < 5:
             return
         return self.cards.pop(), self.cards.pop(), self.cards.pop(), self.cards.pop(), self.cards.pop()
 
